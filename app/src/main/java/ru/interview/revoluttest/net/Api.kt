@@ -1,4 +1,4 @@
-package ru.interview.revoluttest
+package ru.interview.revoluttest.net
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred

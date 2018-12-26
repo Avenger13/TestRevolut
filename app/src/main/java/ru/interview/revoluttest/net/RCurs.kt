@@ -1,4 +1,4 @@
-package ru.interview.revoluttest
+package ru.interview.revoluttest.net
 
 import com.google.gson.JsonObject
 
