@@ -1,21 +1,25 @@
-package ru.interview.revoluttest
+package ru.interview.revoluttest.rates
 
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_cur.*
+import ru.interview.revoluttest.R
 
 
-class CurrencyActivity : AppCompatActivity(), CurrencyContract.View {
+class CurrencyActivity : AppCompatActivity() {
     private lateinit var presenter: CurrencyPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cur)
 
-        presenter = CurrencyPresenter(this)
-        rvCurs.adapter = CursAdapter(presenter).also { presenter.setCurrenciesView(it) }
+        presenter = CurrencyPresenter(RatesInteractor(RatesRepository()))
+        CurrencyAdapter(presenter).apply {
+            rvCurs.adapter = this
+            presenter.attachView(this)
+            notifyDataSetChanged()
+        }
     }
 
     override fun onPause() {
@@ -27,9 +31,4 @@ class CurrencyActivity : AppCompatActivity(), CurrencyContract.View {
         super.onResume()
         presenter.resume()
     }
-
-    override fun showError(s: String) {
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
-    }
-
 }

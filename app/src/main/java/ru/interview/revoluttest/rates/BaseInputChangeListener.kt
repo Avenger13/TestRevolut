@@ -1,23 +1,24 @@
-package ru.interview.revoluttest
+package ru.interview.revoluttest.rates
 
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 
-class BaseInputChangeListener(val presenter: CurrencyContract.Presenter) : TextWatcher {
+class BaseInputChangeListener(private val presenter: CurrencyContract.Presenter) : TextWatcher {
     private var baseEditText: EditText? = null
 
     fun setBaseEditText(e: EditText?): Unit {
         baseEditText?.removeTextChangedListener(this)
         e?.addTextChangedListener(this)
         baseEditText = e
+//        baseEditText?.setSelection(e?.text.toString().length)
     }
 
     fun onViewRecycled(p: Int) {
         if (p == 0) setBaseEditText(null)
     }
 
-    fun onBindViewHolder(vh: CursAdapter.CursVH, p: Int) {
+    fun onBindViewHolder(vh: CurrencyAdapter.CursVH, p: Int) {
         if (p == 0) setBaseEditText(vh.getEditText())
     }
 
